@@ -12,7 +12,9 @@ from datetime import timedelta
 import datetime
 from bokeh.models import Range1d
 import matplotlib.pyplot as plt
-import matplotlib.pylab as pylab
+
+
+plt.switch_backend('agg')
 
 
 app = FlaskAPI(__name__)
@@ -101,7 +103,7 @@ def forecast():
     plt.legend(loc=4)
     plt.xlabel('Date')
     plt.ylabel('Price')
-    pylab.savefig(os.path.join(os.curdir, 'static', 'img', graph_name))
+    plt.savefig(os.path.join(os.curdir, 'static', 'img', graph_name))
 
 
     dates = [d.strftime('%Y-%m-%d') for d in rng]
