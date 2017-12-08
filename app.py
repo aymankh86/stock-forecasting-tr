@@ -9,7 +9,10 @@ from helpers import *
 from bokeh.plotting import figure
 from bokeh.io import export_png
 from datetime import timedelta
+import datetime
 from bokeh.models import Range1d
+import matplotlib.pyplot as plt
+import matplotlib.pylab as pylab
 
 
 app = FlaskAPI(__name__)
@@ -82,13 +85,25 @@ def forecast():
     rng = pd.date_range(start=start_date, periods=head)
 
     graph_name = '%s_graph.png' % int(random.random() * 1000000)
-    p1 = figure(x_axis_type = "datetime", plot_height=400, title="Stock Prices / Predictions")
-    p1.line(np.array(data.index), data['value'], color='blue', legend='Prices')
-    p1.line(np.array(rng), predictions, color='red', legend='Forecsat')
-    p1.legend.location = "top_left"
-    p1.toolbar.logo = None
-    p1.toolbar_location = None
-    export_png(p1, filename=os.path.join(os.curdir, 'static', 'img', graph_name))
+    data['forecast'] = np.nan
+    # plot
+    last_date = data.iloc[-1].name
+    last_unix = last_date.timestamp()
+    one_day = 86400
+    next_unix = last_unix + one_day
+
+    for i in predictions:
+        next_date = datetime.datetime.fromtimestamp(next_unix)
+        next_unix += 86400
+        data.loc[next_date] = [np.nan for _ in range(len(data.columns)-1)]+[i]
+    data['value'].plot(figsize=(15,6), color="green")
+    data['forecast'].plot(figsize=(15,6), color="orange")
+    plt.legend(loc=4)
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    pylab.savefig(os.path.join(os.curdir, 'static', 'img', graph_name))
+
+
     dates = [d.strftime('%Y-%m-%d') for d in rng]
     predictions_result = dict(zip(dates, predictions.tolist()))
 
