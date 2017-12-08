@@ -100,7 +100,7 @@ def forecast():
     ]
     sorted_models = sorted(models, key=itemgetter('accuracy'), reverse=True)
     best_model = sorted_models[0]
-    logger.info("%s model selected as best model to use for forecasting", best_model['name'])
+    logger.info("%s model selected as the best model to be used for forecasting", best_model['name'])
 
     logger.info("Forecasting %s days...", head)
     predictions = predict(best_model['fitted_model'], X_forecast_out)

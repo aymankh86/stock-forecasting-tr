@@ -78,9 +78,9 @@ def train_data(X, y, model='linear_regression'):
     if model == 'linear_regression':
         clf = LinearRegression()
     elif model == 'svr':
-        clf = SVR(C=1.0, epsilon=0.2)
+        clf = SVR()
     elif model == 'decision_tree':
-        clf = DecisionTreeRegressor(random_state=0)
+        clf = DecisionTreeRegressor()
     else:
         raise TypeError("model not recognized")
     clf.fit(X_train,y_train)
