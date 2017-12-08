@@ -83,3 +83,4 @@ local.py
 .bash_history
 .config
 .ipython
+static/img/*
