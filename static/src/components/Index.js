@@ -112,7 +112,7 @@ class Index extends Component {
               <div className="form-group">
                 <h2>Results</h2>
                 <br />
-                {this.state.graph ? <a href={"/static/img/" + this.state.graph} target="_blank" className="btn btn-default submit">Open Graph</a> : ''}
+                {this.state.graph && !this.state.loading ? <a href={"/static/img/" + this.state.graph} target="_blank" className="btn btn-default submit">Open Graph</a> : ''}
                 {resultsDiv}
               </div>
               <div>
