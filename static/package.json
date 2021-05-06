@@ -36,6 +36,6 @@
     "react-select": "^1.0.0-rc.5",
     "react-stepzilla": "^4.6.3",
     "superagent": "^3.6.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.12.1"
   }
 }
